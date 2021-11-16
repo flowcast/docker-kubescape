@@ -1,0 +1,6 @@
+.groovylintrc
+.git
+exceptions.json
+Jenkinsfile
+Makefile
+README.md
