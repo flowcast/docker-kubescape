@@ -27,6 +27,7 @@ def setupProperties() {
   // set the TERM env var so colors show up
   env.TERM = 'xterm'
   properties([
+    pipelineTriggers([cron('H 3 * * *')]), # 
     buildDiscarder(logRotator(daysToKeepStr: '30')),
     disableConcurrentBuilds(),
   ])
