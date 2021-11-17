@@ -27,7 +27,7 @@ def setupProperties() {
   // set the TERM env var so colors show up
   env.TERM = 'xterm'
   properties([
-    pipelineTriggers([cron('H 3 * * *')]), # 
+    pipelineTriggers([cron('H 3 * * *')]),
     buildDiscarder(logRotator(daysToKeepStr: '30')),
     disableConcurrentBuilds(),
   ])
@@ -36,6 +36,7 @@ def setupProperties() {
 def runPipeline() {
   githubNotify status: 'PENDING', context: 'Pipeline'
   stage('Checkout') { checkout scm }
+  stage('Jenkinsfile') { sh 'make test-jenkinsfile' }
   stage('Setup') { sh 'make setup' }
   stage('Build') { sh 'make build' }
   stage('Push') { withArtifactCreds { sh 'make push' } }

@@ -147,6 +147,8 @@ class JenkinsFileTest extends GroovyTestCase {
   Setting log rotate to 30 days
   Notifying github status: PENDING, context: Pipeline
   Running stage: Checkout
+  Running stage: Jenkinsfile
+  Running sh command: make test-jenkinsfile
   Running stage: Setup
   Running sh command: make setup
   Running stage: Build
@@ -172,6 +174,8 @@ class JenkinsFileTest extends GroovyTestCase {
   Setting log rotate to 30 days
   Notifying github status: PENDING, context: Pipeline
   Running stage: Checkout
+  Running stage: Jenkinsfile
+  Running sh command: make test-jenkinsfile
   Running stage: Setup
   Running sh command: make setup
   Running stage: Build
@@ -199,8 +203,8 @@ class JenkinsFileTest extends GroovyTestCase {
   Setting log rotate to 30 days
   Notifying github status: PENDING, context: Pipeline
   Running stage: Checkout
-  Running stage: Setup
-  Running sh command: make setup
+  Running stage: Jenkinsfile
+  Running sh command: make test-jenkinsfile
   Running post build actions
   Build failure
   Build failed: asdf 1 (<asdf2/|Open>)
