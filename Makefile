@@ -9,11 +9,11 @@ K8S_CONTEXT ?= eks-till-dev-00
 KUBECONFIG ?= $(HOME)/.kube/$(K8S_CONTEXT)
 KUBESCAPE_IGNORED_NAMESPACES ?= \
 	cluster-autoscaler,kube-node-lease,kube-public,kube-system,kubernetes-dashboard,monitoring,netdata,portainer,redash
-KUBESCAPE_SCAN_COMMAND ?= scan framework mitre,nsa \
+KUBESCAPE_SCAN_COMMAND ?= scan framework nsa \
 	--fail-threshold 100 \
 	--exclude-namespaces $(KUBESCAPE_IGNORED_NAMESPACES) \
 	--exceptions exceptions.json
-KUBESCAPE_VERSION ?= v1.0.131
+KUBESCAPE_VERSION ?= v1.0.130
 IMAGE_NAME ?= kubescape:$(KUBESCAPE_VERSION)
 
 help:
