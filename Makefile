@@ -8,7 +8,7 @@ K8S_EKS_REGION ?= us-west-2
 K8S_CONTEXT ?= eks-till-dev-00
 KUBECONFIG ?= $(HOME)/.kube/$(K8S_CONTEXT)
 KUBESCAPE_IGNORED_NAMESPACES ?= \
-	cluster-autoscaler,kube-node-lease,kube-public,kube-system,kubernetes-dashboard,monitoring,netdata,portainer,redash
+	cluster-autoscaler,fsx-cleaner,kube-node-lease,kube-public,kube-system,kubernetes-dashboard,monitoring,netdata,portainer,redash
 KUBESCAPE_SCAN_ARGS ?= \
 	--fail-threshold 100 \
 	--exclude-namespaces $(KUBESCAPE_IGNORED_NAMESPACES) \
@@ -86,8 +86,11 @@ mitre: $(HOME)/.aws
 install:
 	curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
-local: $(HOME)/.aws
-	kubescape $(KUBESCAPE_SCAN_ARGS)
+nsa-local: $(HOME)/.aws
+	kubescape scan framework nsa $(KUBESCAPE_SCAN_ARGS)
+
+mitre-local: $(HOME)/.aws
+	kubescape scan framework mitre $(KUBESCAPE_SCAN_ARGS)
 
 bash:
 	docker run --rm -it \
