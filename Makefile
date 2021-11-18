@@ -9,7 +9,7 @@ K8S_CONTEXT ?= eks-till-dev-00
 KUBECONFIG ?= $(HOME)/.kube/$(K8S_CONTEXT)
 KUBESCAPE_IGNORED_NAMESPACES ?= \
 	cluster-autoscaler,kube-node-lease,kube-public,kube-system,kubernetes-dashboard,monitoring,netdata,portainer,redash
-KUBESCAPE_SCAN_COMMAND ?= scan framework nsa \
+KUBESCAPE_SCAN_ARGS ?= \
 	--fail-threshold 100 \
 	--exclude-namespaces $(KUBESCAPE_IGNORED_NAMESPACES) \
 	--exceptions exceptions.json
@@ -65,19 +65,29 @@ kubeconfig: $(HOME)/.kube
 $(HOME)/.aws:
 	mkdir -p $(HOME)/.aws
 
-run: $(HOME)/.aws
+nsa: $(HOME)/.aws
 	docker run --rm \
 		-v $(KUBECONFIG):/root/.kube/config \
 		-v $(HOME)/.aws:/root/.aws \
 		-v $(PWD):/aws \
 	$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME) \
-	$(KUBESCAPE_SCAN_COMMAND)
+	scan framework nsa \
+	$(KUBESCAPE_SCAN_ARGS)
+
+mitre: $(HOME)/.aws
+	docker run --rm \
+		-v $(KUBECONFIG):/root/.kube/config \
+		-v $(HOME)/.aws:/root/.aws \
+		-v $(PWD):/aws \
+	$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME) \
+	scan framework mitre \
+	$(KUBESCAPE_SCAN_ARGS)
 
 install:
 	curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
 local: $(HOME)/.aws
-	kubescape $(KUBESCAPE_SCAN_COMMAND)
+	kubescape $(KUBESCAPE_SCAN_ARGS)
 
 bash:
 	docker run --rm -it \
