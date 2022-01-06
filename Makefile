@@ -1,19 +1,27 @@
 SHELL = /usr/bin/env bash
-
+export
 .DEFAULT: help
+INTERACTIVE:=$(shell [ -t 0 ] && echo 1)
+ifdef INTERACTIVE
+	ADD_COLOR ?= -it
+endif
 DEPLOY_ENV ?= NOT_SET
 ARTIFACT_REPO_URL_FOR_PUSH ?= artifacts.flowcast.ai:8886
 ARTIFACT_REPO_URL_FOR_PULL ?= artifacts.flowcast.ai:8888
 K8S_EKS_REGION ?= us-west-2
 K8S_CONTEXT ?= eks-till-dev-00
 KUBECONFIG ?= $(HOME)/.kube/$(K8S_CONTEXT)
-KUBESCAPE_IGNORED_NAMESPACES ?= \
-	cluster-autoscaler,fsx-cleaner,kube-node-lease,kube-public,kube-system,kubernetes-dashboard,monitoring,netdata,portainer,redash
-KUBESCAPE_SCAN_ARGS ?= \
-	--fail-threshold 100 \
-	--exclude-namespaces $(KUBESCAPE_IGNORED_NAMESPACES) \
+KUBESCAPE_IGNORED_NAMESPACES ?= --exclude-namespaces calico-system,$\
+  cluster-autoscaler,fsx-cleaner,kube-node-lease,kube-public,kube-system,$\
+  kubernetes-dashboard,monitoring,netdata,portainer,redash,tigera-operator,$\
+  till-admin-develop,till-admin-master,traefik
+KUBESCAPE_FRAMEWORKS=nsa,mitre,armobest,devopsbest
+KUBESCAPE_SCAN_CMD ?= scan $\
+	framework $(KUBESCAPE_FRAMEWORKS) $\
+	--fail-threshold 2 $\
+	$(KUBESCAPE_IGNORED_NAMESPACES) $\
 	--exceptions exceptions.json
-KUBESCAPE_VERSION ?= v1.0.130
+KUBESCAPE_VERSION ?= v1.0.137
 IMAGE_NAME ?= kubescape:$(KUBESCAPE_VERSION)
 
 help:
@@ -65,32 +73,19 @@ kubeconfig: $(HOME)/.kube
 $(HOME)/.aws:
 	mkdir -p $(HOME)/.aws
 
-nsa: $(HOME)/.aws
-	docker run --rm \
+scan: $(HOME)/.aws
+	docker run --rm $(ADD_COLOR) \
 		-v $(KUBECONFIG):/root/.kube/config \
 		-v $(HOME)/.aws:/root/.aws \
 		-v $(PWD):/aws \
 	$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME) \
-	scan framework nsa \
-	$(KUBESCAPE_SCAN_ARGS)
-
-mitre: $(HOME)/.aws
-	docker run --rm \
-		-v $(KUBECONFIG):/root/.kube/config \
-		-v $(HOME)/.aws:/root/.aws \
-		-v $(PWD):/aws \
-	$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME) \
-	scan framework mitre \
-	$(KUBESCAPE_SCAN_ARGS)
+	$(KUBESCAPE_SCAN_CMD)
 
 install:
 	curl -s https://raw.githubusercontent.com/armosec/kubescape/master/install.sh | bash
 
-nsa-local: $(HOME)/.aws
-	kubescape scan framework nsa $(KUBESCAPE_SCAN_ARGS)
-
-mitre-local: $(HOME)/.aws
-	kubescape scan framework mitre $(KUBESCAPE_SCAN_ARGS)
+scan-local: $(HOME)/.aws
+	kubescape $(KUBESCAPE_SCAN_CMD)
 
 bash:
 	docker run --rm -it \
@@ -104,3 +99,6 @@ test-jenkinsfile:
 
 test-jenkinsfile-local:
 	groovy -cp scripts/jenkinsfile scripts/jenkinsfile/Tests.groovy
+
+printenv:
+	env | sort

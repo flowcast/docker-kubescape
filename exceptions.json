@@ -1,22 +1,182 @@
 [
-    {
-        "name": "exclude-allowed-hostPath-control",
-        "policyType": "postureExceptionPolicy",
-        "actions": [
-            "alertOnly"
-        ],
-        "resources": [
-            {
-                "designatorType": "Attributes",
-                "attributes": {
-                    "kind": ".*"
-                }
-            }
-        ],
-        "posturePolicies": [
-            {
-                "controlName": "Allowed hostPath" 
-            }
-        ]
-    }
+  {
+    "name": "exclude-global",
+    "policyType": "postureExceptionPolicy",
+    "actions": ["alertOnly"],
+    "resources": [
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "kind": ".*"
+        }
+      }
+    ],
+    "posturePolicies": [
+      {
+        "controlName": "Linux hardening"
+      },
+      {
+        "controlName": "Ingress and Egress blocked"
+      },
+      {
+        "controlName": "K8s common labels usage"
+      },
+      {
+        "controlName": "Access container service account"
+      },
+      {
+        "controlName": "List Kubernetes secrets"
+      },
+      {
+        "controlName": "Data Destruction"
+      },
+      {
+        "controlName": "Delete Kubernetes events"
+      },
+      {
+        "controlName": "CoreDNS poisoning"
+      }
+    ]
+  },
+  {
+    "name": "exclude-out-of-our-control",
+    "policyType": "postureExceptionPolicy",
+    "actions": ["alertOnly"],
+    "resources": [
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "prometheus-server"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "prometheus"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "grafana"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "alertmanager"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "default"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "traefik"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "whoami"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "postgres"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "db-setup.*"
+        }
+      }
+    ],
+    "posturePolicies": [
+      {
+        "controlName": "Automatic mapping of service account"
+      },
+      {
+        "controlName": "Allow privilege escalation"
+      },
+      {
+        "controlName": "CVE-2021-25741 - Using symlink for arbitrary host file system access."
+      },
+      {
+        "controlName": "Immutable container filesystem"
+      },
+      {
+        "controlName": "Configured liveness probe"
+      },
+      {
+        "controlName": "Configured readiness probe"
+      }
+    ]
+  },
+  {
+    "name": "exclude-global-envs-secrets",
+    "policyType": "postureExceptionPolicy",
+    "actions": ["alertOnly"],
+    "resources": [
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "global-envs"
+        }
+      }
+    ],
+    "posturePolicies": [
+      {
+        "controlName": "Applications credentials in configuration files"
+      }
+    ]
+  },
+  {
+    "name": "exclude-system-and-eks-names",
+    "policyType": "postureExceptionPolicy",
+    "actions": ["alertOnly"],
+    "resources": [
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "system.*"
+        }
+      },
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "name": "eks.*"
+        }
+      }
+    ],
+    "posturePolicies": [
+      {
+        "controlName": ".*"
+      }
+    ]
+  },
+  {
+    "name": "exclude-service-accounts",
+    "policyType": "postureExceptionPolicy",
+    "actions": ["alertOnly"],
+    "resources": [
+      {
+        "designatorType": "Attributes",
+        "attributes": {
+          "kind": "ServiceAccount"
+        }
+      }
+    ],
+    "posturePolicies": [
+      {
+        "controlName": ".*"
+      }
+    ]
+  }
 ]

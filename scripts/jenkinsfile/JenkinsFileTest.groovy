@@ -158,18 +158,12 @@ class JenkinsFileTest extends GroovyTestCase {
   Running sh command: make push
   Running stage: Contexts
   Running in parallel
-  Running target eks-till-dev-00::nsa
+  Running target eks-till-dev-00
   Running sh command: K8S_CONTEXT=eks-till-dev-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make nsa
-  Running target eks-till-prod-00::nsa
+  Running sh command: K8S_CONTEXT=eks-till-dev-00 make scan
+  Running target eks-till-prod-00
   Running sh command: K8S_CONTEXT=eks-till-prod-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-prod-00 make nsa
-  Running target eks-till-dev-00::mitre
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make mitre
-  Running target eks-till-prod-00::mitre
-  Running sh command: K8S_CONTEXT=eks-till-prod-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-prod-00 make mitre
+  Running sh command: K8S_CONTEXT=eks-till-prod-00 make scan
   Running post build actions
   slackSend channel:#alerts-kubescape message:Build fixed: asdf 1 (<asdf2/|Open>) color:good
   """.stripIndent()
@@ -191,18 +185,12 @@ class JenkinsFileTest extends GroovyTestCase {
   Running sh command: make push
   Running stage: Contexts
   Running in parallel
-  Running target eks-till-dev-00::nsa
+  Running target eks-till-dev-00
   Running sh command: K8S_CONTEXT=eks-till-dev-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make nsa
-  Running target eks-till-prod-00::nsa
+  Running sh command: K8S_CONTEXT=eks-till-dev-00 make scan
+  Running target eks-till-prod-00
   Running sh command: K8S_CONTEXT=eks-till-prod-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-prod-00 make nsa
-  Running target eks-till-dev-00::mitre
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make mitre
-  Running target eks-till-prod-00::mitre
-  Running sh command: K8S_CONTEXT=eks-till-prod-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-prod-00 make mitre
+  Running sh command: K8S_CONTEXT=eks-till-prod-00 make scan
   Running post build actions
   Build failure
   Build failed: asdf 1 (<asdf2/|Open>)

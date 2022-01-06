@@ -40,26 +40,24 @@ def runPipeline() {
   stage('Setup') { sh 'make setup' }
   stage('Build') { sh 'make build' }
   stage('Push') { withArtifactCreds { sh 'make push' } }
-  stage('Contexts') { 
-    parallel checkContexts(K8S_CONTEXTS, ['nsa', 'mitre'])
+  stage('Contexts') {
+    parallel checkContexts(K8S_CONTEXTS)
   }
 }
 
-def checkContexts(contexts, frameworks) {
+def checkContexts(contexts) {
   def returnVal = [:]
-  frameworks.each { framework ->
-    for (context in contexts) {
-      returnVal["$context::$framework"] = createContextCheck(context, framework)
-    }
+  for (context in contexts) {
+    returnVal["$context"] = createContextCheck(context)
   }
   return returnVal
 }
 
-def createContextCheck(context, framework) {
+def createContextCheck(context) {
   return {
     try {
       sh "K8S_CONTEXT=${context} make kubeconfig"
-      sh "K8S_CONTEXT=${context} make ${framework}"
+      sh "K8S_CONTEXT=${context} make scan"
     } catch (err) {
       currentBuild.result = 'FAILURE'
       throw err
