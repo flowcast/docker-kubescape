@@ -33,7 +33,7 @@ make kubeconfig
 Runs kubescape against the configured cluster
 
 ```
-make run
+make scan
 ```
 
 ## Other Make Targets

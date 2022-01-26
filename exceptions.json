@@ -35,6 +35,9 @@
       },
       {
         "controlName": "CoreDNS poisoning"
+      },
+      {
+        "controlName": "Configured liveness probe"
       }
     ]
   },
@@ -116,6 +119,12 @@
       },
       {
         "controlName": "Configured readiness probe"
+      },
+      {
+        "controlName": "Label usage for resources"
+      },
+      {
+        "controlName": "Kubernetes CronJob"
       }
     ]
   },
