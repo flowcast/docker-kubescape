@@ -16,6 +16,12 @@
         "controlName": "Linux hardening"
       },
       {
+        "controlName": "Images from allowed registry"
+      },
+      {
+        "controlName": "Label usage for resources"
+      },
+      {
         "controlName": "Ingress and Egress blocked"
       },
       {

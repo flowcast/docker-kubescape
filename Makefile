@@ -19,6 +19,7 @@ KUBESCAPE_FRAMEWORKS=nsa,mitre,armobest,devopsbest
 KUBESCAPE_SCAN_CMD ?= scan $\
 	framework $(KUBESCAPE_FRAMEWORKS) $\
 	--fail-threshold 2 $\
+	--controls-config config.json $\
 	$(KUBESCAPE_IGNORED_NAMESPACES) $\
 	--exceptions exceptions.json
 KUBESCAPE_VERSION ?= v1.0.137
@@ -77,6 +78,7 @@ scan: $(HOME)/.aws
 	docker run --rm $(ADD_COLOR) \
 		-v $(KUBECONFIG):/root/.kube/config \
 		-v $(HOME)/.aws:/root/.aws \
+		-v $(PWD)/config.json:/root/.kubescape/config.json \
 		-v $(PWD):/aws \
 	$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME) \
 	$(KUBESCAPE_SCAN_CMD)
@@ -89,6 +91,10 @@ scan-local: $(HOME)/.aws
 
 bash:
 	docker run --rm -it \
+		-v $(KUBECONFIG):/root/.kube/config \
+		-v $(HOME)/.aws:/root/.aws \
+		-v $(PWD)/config.json:/root/.kubescape/config.json \
+		-v $(PWD):/aws \
 		--entrypoint bash \
 		$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME)
 
