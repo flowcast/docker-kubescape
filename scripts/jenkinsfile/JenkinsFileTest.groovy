@@ -1,4 +1,6 @@
 /* groovylint-disable UnnecessaryGString */
+import groovy.test.GroovyTestCase
+
 class JenkinsFileTest extends GroovyTestCase {
 
   void testSuccess() {

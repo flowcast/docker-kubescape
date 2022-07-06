@@ -1,4 +1,4 @@
-import groovy.util.GroovyTestSuite
+import groovy.test.GroovyTestSuite
 import junit.framework.Test
 import junit.textui.TestRunner
 

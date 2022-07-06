@@ -99,9 +99,8 @@ bash:
 		$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME)
 
 test-jenkinsfile:
-	docker run --rm -v $(PWD):/home/groovy/app groovy:3.0.6 \
-		bash -c "cd /home/groovy/app && \
-		groovy -cp scripts/jenkinsfile scripts/jenkinsfile/Tests.groovy"
+	docker run --rm -v $(PWD):/home/groovy groovy:4.0.3-jdk18-alpine \
+		groovy -cp scripts/jenkinsfile scripts/jenkinsfile/Tests.groovy
 
 test-jenkinsfile-local:
 	groovy -cp scripts/jenkinsfile scripts/jenkinsfile/Tests.groovy
