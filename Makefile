@@ -18,7 +18,7 @@ KUBESCAPE_IGNORED_NAMESPACES ?= --exclude-namespaces calico-system,$\
 KUBESCAPE_FRAMEWORKS=nsa,mitre,armobest,devopsbest
 KUBESCAPE_SCAN_CMD ?= scan $\
 	framework $(KUBESCAPE_FRAMEWORKS) $\
-	--fail-threshold 3.0 $\
+	--fail-threshold 3 $\
 	--controls-config config.json $\
 	$(KUBESCAPE_IGNORED_NAMESPACES) $\
 	--exceptions exceptions.json
