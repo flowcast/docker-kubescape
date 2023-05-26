@@ -1,7 +1,7 @@
 DEFAULT_NODE_LABEL = 'us-west-2-dev'
 CHANNEL = '#alerts-kubescape'
 K8S_CONTEXTS = [
-  'eks-till-dev-00',
+  'eks-till-dev-02',
   'eks-till-prod-00',
 ]
 

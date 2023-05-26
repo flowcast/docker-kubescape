@@ -9,7 +9,7 @@ DEPLOY_ENV ?= NOT_SET
 ARTIFACT_REPO_URL_FOR_PUSH ?= artifacts.flowcast.ai:8886
 ARTIFACT_REPO_URL_FOR_PULL ?= artifacts.flowcast.ai:8888
 K8S_EKS_REGION ?= us-west-2
-K8S_CONTEXT ?= eks-till-dev-00
+K8S_CONTEXT ?= eks-till-dev-02
 KUBECONFIG ?= $(HOME)/.kube/$(K8S_CONTEXT)
 KUBESCAPE_IGNORED_NAMESPACES ?= --exclude-namespaces calico-system,$\
   cluster-autoscaler,fsx-cleaner,kube-node-lease,kube-public,kube-system,$\

@@ -77,7 +77,7 @@ class JenkinsFileTest extends GroovyTestCase {
     jenkinsPipeline.metaClass.DEFAULT_NODE_LABEL = 'us-west-2-dev'
     jenkinsPipeline.metaClass.CHANNEL = '#alerts-kubescape'
     jenkinsPipeline.metaClass.K8S_CONTEXTS = [
-      'eks-till-dev-00',
+      'eks-till-dev-02',
       'eks-till-prod-00',
     ]
     jenkinsPipeline.metaClass.buildDiscarder = { args -> }
@@ -160,9 +160,9 @@ class JenkinsFileTest extends GroovyTestCase {
   Running sh command: make push
   Running stage: Contexts
   Running in parallel
-  Running target eks-till-dev-00
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make scan
+  Running target eks-till-dev-02
+  Running sh command: K8S_CONTEXT=eks-till-dev-02 make kubeconfig
+  Running sh command: K8S_CONTEXT=eks-till-dev-02 make scan
   Running target eks-till-prod-00
   Running sh command: K8S_CONTEXT=eks-till-prod-00 make kubeconfig
   Running sh command: K8S_CONTEXT=eks-till-prod-00 make scan
@@ -187,9 +187,9 @@ class JenkinsFileTest extends GroovyTestCase {
   Running sh command: make push
   Running stage: Contexts
   Running in parallel
-  Running target eks-till-dev-00
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make kubeconfig
-  Running sh command: K8S_CONTEXT=eks-till-dev-00 make scan
+  Running target eks-till-dev-02
+  Running sh command: K8S_CONTEXT=eks-till-dev-02 make kubeconfig
+  Running sh command: K8S_CONTEXT=eks-till-dev-02 make scan
   Running target eks-till-prod-00
   Running sh command: K8S_CONTEXT=eks-till-prod-00 make kubeconfig
   Running sh command: K8S_CONTEXT=eks-till-prod-00 make scan
