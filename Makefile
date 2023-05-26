@@ -18,7 +18,7 @@ KUBESCAPE_IGNORED_NAMESPACES ?= --exclude-namespaces calico-system,$\
 KUBESCAPE_FRAMEWORKS=nsa,mitre,armobest,devopsbest
 KUBESCAPE_SCAN_CMD ?= scan $\
 	framework $(KUBESCAPE_FRAMEWORKS) $\
-	--fail-threshold 3 $\
+	--compliance-threshold 3 $\
 	--controls-config config.json $\
 	$(KUBESCAPE_IGNORED_NAMESPACES) $\
 	--exceptions exceptions.json
@@ -80,6 +80,7 @@ scan: $(HOME)/.aws
 		-v $(HOME)/.aws:/root/.aws \
 		-v $(PWD)/config.json:/root/.kubescape/config.json \
 		-v $(PWD):/aws \
+		--env-file .env.kubescape \
 	$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME) \
 	$(KUBESCAPE_SCAN_CMD)
 
@@ -95,6 +96,7 @@ bash:
 		-v $(HOME)/.aws:/root/.aws \
 		-v $(PWD)/config.json:/root/.kubescape/config.json \
 		-v $(PWD):/aws \
+		--env-file .env.kubescape \
 		--entrypoint bash \
 		$(ARTIFACT_REPO_URL_FOR_PULL)/$(IMAGE_NAME)
 
