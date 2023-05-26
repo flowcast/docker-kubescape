@@ -22,7 +22,7 @@ KUBESCAPE_SCAN_CMD ?= scan $\
 	--controls-config config.json $\
 	$(KUBESCAPE_IGNORED_NAMESPACES) $\
 	--exceptions exceptions.json
-KUBESCAPE_VERSION ?= v1.0.137
+KUBESCAPE_VERSION ?= v2.3.3
 IMAGE_NAME ?= kubescape:$(KUBESCAPE_VERSION)
 
 help:
